@@ -4,11 +4,11 @@ import { Fragment } from 'react';
 function App() {
   return (
     <Fragment>
-      <header className="header text-white flex justify-center items-center gap-x-5 py-10">
+      <header className="header text-white flex justify-center items-center gap-x-5 py-10 mb-5">
         <span className="text-primary">Home</span>
         <span>Movies</span>
       </header>
-      <section className="banner h-[500px] page-container">
+      <section className="banner h-[500px] page-container mb-20">
         <div className="w-full h-full rounded-lg bg-white relative">
           <div
             className="overlay absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.5)] 
@@ -28,25 +28,85 @@ function App() {
             </div>
             <button className="capitalize py-3 px-6 bg-primary rounded-lg flex gap-x-1">
               watch now
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.91 11.672a.375.375 0 0 1 0 .656l-5.603 3.113a.375.375 0 0 1-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112Z"
-                />
-              </svg>
+              <img src="/play.svg" alt="" className="w-6" />
+            </button>
+          </div>
+        </div>
+      </section>
+      <section className="movies-layout page-container pb-20">
+        <h2 className="capitalize text-white text-3xl font-bold mb-10">now playing</h2>
+        <div className="movie-list grid grid-cols-4 gap-10">
+          <div className="movie-card rounded-lg p-3 bg-slate-800 text-white">
+            <img
+              src="https://image.api.playstation.com/vulcan/ap/rnd/202008/1020/T45iRN1bhiWcJUzST6UFGBvO.png"
+              className="w-full h-[250px] object-cover rounded-lg mb-5"
+            />
+            <h3 className="capitalize text-xl font-bold mb-3">spiderman: homecoming</h3>
+            <div
+              className="flex items-center justify-between text-sm
+            opacity-50 mb-10"
+            >
+              <span>2024</span>
+              <span className="flex">7.4</span>
+            </div>
+            <button
+              className="capitalize py-3 px-6 bg-primary rounded-lg flex gap-x-1 w-full
+            items-center justify-center"
+            >
+              watch now
+              <img src="/play.svg" alt="" className="w-6" />
+            </button>
+          </div>
+        </div>
+      </section>
+      <section className="movies-layout page-container pb-20">
+        <h2 className="capitalize text-white text-3xl font-bold mb-10">top rated</h2>
+        <div className="movie-list grid grid-cols-4 gap-10">
+          <div className="movie-card rounded-lg p-3 bg-slate-800 text-white">
+            <img
+              src="https://image.api.playstation.com/vulcan/ap/rnd/202008/1020/T45iRN1bhiWcJUzST6UFGBvO.png"
+              className="w-full h-[250px] object-cover rounded-lg mb-5"
+            />
+            <h3 className="capitalize text-xl font-bold mb-3">spiderman: homecoming</h3>
+            <div
+              className="flex items-center justify-between text-sm
+            opacity-50 mb-10"
+            >
+              <span>2024</span>
+              <span>7.4</span>
+            </div>
+            <button
+              className="capitalize py-3 px-6 bg-primary rounded-lg flex gap-x-1 w-full
+            items-center justify-center"
+            >
+              watch now
+              <img src="/play.svg" alt="" className="w-6" />
+            </button>
+          </div>
+        </div>
+      </section>
+      <section className="movies-layout page-container pb-20">
+        <h2 className="capitalize text-white text-3xl font-bold mb-10">trending</h2>
+        <div className="movie-list grid grid-cols-4 gap-10">
+          <div className="movie-card rounded-lg p-3 bg-slate-800 text-white">
+            <img
+              src="https://image.api.playstation.com/vulcan/ap/rnd/202008/1020/T45iRN1bhiWcJUzST6UFGBvO.png"
+              className="w-full h-[250px] object-cover rounded-lg mb-5"
+            />
+            <h3 className="capitalize text-xl font-bold mb-3">spiderman: homecoming</h3>
+            <div
+              className="flex items-center justify-between text-sm
+            opacity-50 mb-10"
+            >
+              <span>2024</span>
+              <span>7.4</span>
+            </div>
+            <button
+              className="capitalize py-3 px-6 bg-primary rounded-lg flex gap-x-1 w-full
+            items-center justify-center"
+            >
+              watch now
+              <img src="/play.svg" alt="" className="w-6" />
             </button>
           </div>
         </div>
