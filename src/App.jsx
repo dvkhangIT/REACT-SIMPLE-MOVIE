@@ -41,55 +41,11 @@ function App() {
       </section>
       <section className="movies-layout page-container pb-20">
         <h2 className="capitalize text-white text-3xl font-bold mb-10">top rated</h2>
-        <div className="movie-list grid grid-cols-4 gap-10">
-          <div className="movie-card rounded-lg p-3 bg-slate-800 text-white">
-            <img
-              src="https://image.api.playstation.com/vulcan/ap/rnd/202008/1020/T45iRN1bhiWcJUzST6UFGBvO.png"
-              className="w-full h-[250px] object-cover rounded-lg mb-5"
-            />
-            <h3 className="capitalize text-xl font-bold mb-3">spiderman: homecoming</h3>
-            <div
-              className="flex items-center justify-between text-sm
-            opacity-50 mb-10"
-            >
-              <span>2024</span>
-              <span>7.4</span>
-            </div>
-            <button
-              className="capitalize py-3 px-6 bg-primary rounded-lg flex gap-x-1 w-full
-            items-center justify-center"
-            >
-              watch now
-              <img src="/play.svg" alt="" className="w-6" />
-            </button>
-          </div>
-        </div>
+        <MovieList type="top_rated"></MovieList>
       </section>
       <section className="movies-layout page-container pb-20">
         <h2 className="capitalize text-white text-3xl font-bold mb-10">trending</h2>
-        <div className="movie-list grid grid-cols-4 gap-10">
-          <div className="movie-card rounded-lg p-3 bg-slate-800 text-white">
-            <img
-              src="https://image.api.playstation.com/vulcan/ap/rnd/202008/1020/T45iRN1bhiWcJUzST6UFGBvO.png"
-              className="w-full h-[250px] object-cover rounded-lg mb-5"
-            />
-            <h3 className="capitalize text-xl font-bold mb-3">spiderman: homecoming</h3>
-            <div
-              className="flex items-center justify-between text-sm
-            opacity-50 mb-10"
-            >
-              <span>2024</span>
-              <span>7.4</span>
-            </div>
-            <button
-              className="capitalize py-3 px-6 bg-primary rounded-lg flex gap-x-1 w-full
-            items-center justify-center"
-            >
-              watch now
-              <img src="/play.svg" alt="" className="w-6" />
-            </button>
-          </div>
-        </div>
+        <MovieList type="popular"></MovieList>
       </section>
     </Fragment>
   );
