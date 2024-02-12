@@ -2,6 +2,8 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import useSWR from 'swr';
 import { apiKey, fetcher } from '../config';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import MovieCard from '../components/movie/MovieCard';
 
 const MovieDetailPage = () => {
   const { movieId } = useParams();
@@ -46,6 +48,7 @@ const MovieDetailPage = () => {
       </p>
       <MovieCredits></MovieCredits>
       <MovieVideos></MovieVideos>
+      <MovieSimilar></MovieSimilar>
     </div>
   );
 };
@@ -83,10 +86,59 @@ function MovieVideos() {
     fetcher
   );
   if (!data) return null;
-  console.log(`MovieVideos ~ data:`, data);
-  return <div></div>;
+  const { results } = data;
+  if (!results || results.length <= 0) return null;
+  return (
+    <div className="py-10">
+      <div className="flex flex-col gap-10">
+        {results.slice(0, 2).map((item) => (
+          <div className="" key={item.id}>
+            <h3 className="mb-5 text-xl font-medium p-3 bg-secondary inline-block">
+              {item.name}
+            </h3>
+            <div key={item.id} className="w-full aspect-video">
+              <iframe
+                width="935"
+                height="526"
+                src={`https://www.youtube.com/embed/${item.key}`}
+                title="Badland Hunters | Inside Look | Netflix [ENG SUB]"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="w-full h-full object-fill"
+              ></iframe>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
-{
-  /* <iframe width="935" height="526" src="https://www.youtube.com/embed/G82CgMekC5U" title="Badland Hunters | Inside Look | Netflix [ENG SUB]" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> */
+function MovieSimilar() {
+  const { movieId } = useParams();
+  const { data, error } = useSWR(
+    `https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=${apiKey}`,
+    fetcher
+  );
+  if (!data) return null;
+  const { results } = data;
+  if (!results || results.length <= 0) return null;
+  //   console.log(`MovieSimilar ~ data:`, data);
+  //   console.log(`MovieSimilar ~ results:`, results);
+  return (
+    <div className="py10">
+      <h2 className="text-3xl font-medium mb-10">Similar movies</h2>
+      <div className="movie-list">
+        <Swiper grabCursor={true} spaceBetween={40} slidesPerView={'auto'}>
+          {results.length > 0 &&
+            results.map((item) => (
+              <SwiperSlide key={item.id}>
+                <MovieCard item={item}></MovieCard>
+              </SwiperSlide>
+            ))}
+        </Swiper>
+      </div>
+    </div>
+  );
 }
 export default MovieDetailPage;
