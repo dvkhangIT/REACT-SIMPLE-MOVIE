@@ -1,13 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { apiKey, fetcher } from '../config';
 import useSWR from 'swr';
 import MovieCard from '../components/movie/MovieCard';
+import useDebounce from '../hooks/useDebounce';
 
+// https://api.themoviedb.org/3/search/movie
 const MoviePage = () => {
-  const { data } = useSWR(
-    `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`,
-    fetcher
+  const [filter, setFilter] = useState('');
+  const handleFilterChange = (e) => {
+    setFilter(e.target.value);
+  };
+  const [url, setUrl] = useState(
+    `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`
   );
+  const filterDebounce = useDebounce(filter);
+
+  useEffect(() => {
+    if (filterDebounce) {
+      setUrl(
+        `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${filterDebounce}`
+      );
+    } else {
+      setUrl(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`);
+    }
+  }, [filterDebounce]);
+  const { data } = useSWR(url, fetcher);
   const movies = data?.results || [];
   return (
     <div className="p-10">
@@ -17,6 +34,7 @@ const MoviePage = () => {
             type="text"
             placeholder="Type here to search"
             className="w-full p-4 outline-none bg-slate-800"
+            onChange={handleFilterChange}
           />
         </div>
         <button className="bg-primary p-4">
