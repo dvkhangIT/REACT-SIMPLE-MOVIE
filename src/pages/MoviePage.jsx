@@ -4,7 +4,6 @@ import useSWR from 'swr';
 import MovieCard from '../components/movie/MovieCard';
 import useDebounce from '../hooks/useDebounce';
 
-// https://api.themoviedb.org/3/search/movie
 const MoviePage = () => {
   const [filter, setFilter] = useState('');
   const handleFilterChange = (e) => {
@@ -24,7 +23,8 @@ const MoviePage = () => {
       setUrl(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`);
     }
   }, [filterDebounce]);
-  const { data } = useSWR(url, fetcher);
+  const { data, error } = useSWR(url, fetcher);
+  const loading = !data && !error;
   const movies = data?.results || [];
   return (
     <div className="p-10">
@@ -52,9 +52,56 @@ const MoviePage = () => {
           </svg>
         </button>
       </div>
+      {loading && (
+        <div className="w-10 h-10 border-4 border-primary rounded-full border-t-transparent mx-auto animate-spin"></div>
+      )}
       <div className="grid grid-cols-4 gap-10">
-        {movies.length > 0 &&
+        {!loading &&
+          movies.length > 0 &&
           movies.map((item) => <MovieCard item={item} key={item.id}></MovieCard>)}
+      </div>
+      <div className="flex items-center justify-center mt-10 gap-x-5">
+        <span className="cursor-pointer">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15.75 19.5 8.25 12l7.5-7.5"
+            />
+          </svg>
+        </span>
+        <span className="cursor-pointer py-2 px-4 rounded bg-white text-slate-800 leading-none inline-block hover:bg-primary hover:text-white transition-all">
+          1
+        </span>
+        <span className="cursor-pointer py-2 px-4 rounded bg-white text-slate-800 leading-none inline-block hover:bg-primary hover:text-white transition-all">
+          2
+        </span>
+        <span className="cursor-pointer py-2 px-4 rounded bg-white text-slate-800 leading-none inline-block hover:bg-primary hover:text-white transition-all">
+          3
+        </span>
+        <span className="cursor-pointer">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m8.25 4.5 7.5 7.5-7.5 7.5"
+            />
+          </svg>
+        </span>
       </div>
     </div>
   );
