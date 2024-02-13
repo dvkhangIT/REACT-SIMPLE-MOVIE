@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-
+import Button from '../button/Button';
 const MovieCard = ({ item }) => {
   //   console.log(`MovieCard ~ item:`, item);
   const { poster_path, id, release_date, title, vote_average } = item;
@@ -33,14 +33,21 @@ const MovieCard = ({ item }) => {
             </svg>
           </span>
         </div>
-        <button
+        {/* <button
           className="capitalize py-3 px-6 bg-primary rounded-lg flex gap-x-1 w-full
     items-center justify-center mt-auto"
           onClick={() => navigate(`/movie/${id}`)}
         >
           watch now
           <img src="/play.svg" alt="" className="w-6" />
-        </button>
+        </button> */}
+        <Button
+          bgColor="primary"
+          className="w-full"
+          onClick={() => navigate(`/movie/${id}`)}
+        >
+          watch now{' '}
+        </Button>
       </div>
     </div>
   );

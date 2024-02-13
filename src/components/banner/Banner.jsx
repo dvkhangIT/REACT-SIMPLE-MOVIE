@@ -2,6 +2,8 @@ import React from 'react';
 import useSWR from 'swr';
 import { apiKey, fetcher } from '../../config';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import Button from '../button/Button';
+import { useNavigate } from 'react-router-dom';
 
 const Banner = () => {
   const { data } = useSWR(
@@ -22,7 +24,8 @@ const Banner = () => {
   );
 };
 function BannerItem({ item }) {
-  const { poster_path, title } = item;
+  const navigate = useNavigate();
+  const { poster_path, title, id } = item;
   return (
     <section className="banner h-[500px] page-container mb-20">
       <div className="w-full h-full rounded-lg bg-white relative">
@@ -42,10 +45,11 @@ function BannerItem({ item }) {
             <span className="border border-white px-4 py-2 rounded-md">Action</span>
             <span className="border border-white px-4 py-2 rounded-md">Action</span>
           </div>
-          <button className="capitalize py-3 px-6 bg-primary rounded-lg flex gap-x-1">
+          {/* <button className="capitalize py-3 px-6 bg-primary rounded-lg flex gap-x-1">
             watch now
             <img src="/play.svg" alt="" className="w-6" />
-          </button>
+          </button> */}
+          <Button onClick={() => navigate(`/movie/${id}`)}>watch now</Button>
         </div>
       </div>
     </section>

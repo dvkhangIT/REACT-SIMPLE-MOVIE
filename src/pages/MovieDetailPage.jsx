@@ -1,4 +1,3 @@
-import React from 'react';
 import { useParams } from 'react-router-dom';
 import useSWR from 'swr';
 import { apiKey, fetcher } from '../config';
@@ -7,7 +6,7 @@ import MovieCard from '../components/movie/MovieCard';
 
 const MovieDetailPage = () => {
   const { movieId } = useParams();
-  const { data, error } = useSWR(
+  const { data } = useSWR(
     `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`,
     fetcher
   );
@@ -55,7 +54,7 @@ const MovieDetailPage = () => {
 function MovieCredits() {
   // https://api.themoviedb.org/3/movie/{movie_id}/credits
   const { movieId } = useParams();
-  const { data, error } = useSWR(
+  const { data } = useSWR(
     `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${apiKey}`,
     fetcher
   );
@@ -81,7 +80,7 @@ function MovieCredits() {
 }
 function MovieVideos() {
   const { movieId } = useParams();
-  const { data, error } = useSWR(
+  const { data } = useSWR(
     `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${apiKey}`,
     fetcher
   );
@@ -116,7 +115,7 @@ function MovieVideos() {
 }
 function MovieSimilar() {
   const { movieId } = useParams();
-  const { data, error } = useSWR(
+  const { data } = useSWR(
     `https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=${apiKey}`,
     fetcher
   );
