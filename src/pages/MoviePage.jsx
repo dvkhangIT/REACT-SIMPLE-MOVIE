@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { apiKey, fetcher } from '../config';
 import useSWR from 'swr';
 import MovieCard from '../components/movie/MovieCard';
 import useDebounce from '../hooks/useDebounce';
+import ReactPaginate from 'react-paginate';
 
+const itemsPerPage = 20;
 const MoviePage = () => {
-  const pageCount = 5;
   const [filter, setFilter] = useState('');
   const [nextPage, setNextPage] = useState(1);
   const handleFilterChange = (e) => {
@@ -30,10 +31,20 @@ const MoviePage = () => {
   const { data, error } = useSWR(url, fetcher);
   const loading = !data && !error;
   const movies = data?.results || [];
-  //   if (!data) return null;
-  //   const { page, total_pages } = data;
-  //   console.log(`MoviePage ~ total_page:`, total_pages);
-  //   console.log(`MoviePage ~ page:`, page);
+
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+  useEffect(() => {
+    if (!data || !data.total_pages) return;
+    setPageCount(Math.ceil(data.total_pages / itemsPerPage));
+  }, [data, itemOffset]);
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % data.toltal_pages;
+    setItemOffset(newOffset);
+    setNextPage(event.selected + 1);
+  };
+
   return (
     <div className="p-10">
       <div className="flex mb-10 text-white">
@@ -68,47 +79,16 @@ const MoviePage = () => {
           movies.length > 0 &&
           movies.map((item) => <MovieCard item={item} key={item.id}></MovieCard>)}
       </div>
-      <div className="flex items-center justify-center mt-10 gap-x-5">
-        <span className="cursor-pointer" onClick={() => setNextPage(nextPage - 1)}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15.75 19.5 8.25 12l7.5-7.5"
-            />
-          </svg>
-        </span>
-        {new Array(pageCount).fill(0).map((item, index) => (
-          <span
-            className="cursor-pointer py-2 px-4 rounded bg-white text-slate-800 leading-none inline-block hover:bg-primary hover:text-white transition-all"
-            onClick={() => setNextPage(index + 1)}
-          >
-            {index + 1}
-          </span>
-        ))}
-        <span className="cursor-pointer" onClick={() => setNextPage(nextPage + 1)}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m8.25 4.5 7.5 7.5-7.5 7.5"
-            />
-          </svg>
-        </span>
+      <div className="mt-10">
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel="next >"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          pageCount={pageCount}
+          previousLabel="< previous"
+          renderOnZeroPageCount={null}
+        />
       </div>
     </div>
   );
