@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { apiKey, fetcher, tmdbAPI } from '../config';
+import { fetcher, tmdbAPI } from '../config';
 import useSWR from 'swr';
 import MovieCard from '../components/movie/MovieCard';
 import useDebounce from '../hooks/useDebounce';
