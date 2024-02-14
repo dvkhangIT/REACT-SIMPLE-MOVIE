@@ -1,13 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import Button from '../button/Button';
+import { tmdbAPI } from '../../config';
 const MovieCard = ({ item }) => {
-  //   console.log(`MovieCard ~ item:`, item);
   const { poster_path, id, release_date, title, vote_average } = item;
   const navigate = useNavigate();
   return (
     <div className="movie-card flex flex-col rounded-lg p-3 bg-slate-800 text-white select-none h-full">
       <img
-        src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+        src={tmdbAPI.imageUrl(poster_path, 'w500')}
         className="w-full h-[250px] object-cover rounded-lg mb-5"
       />
       <div className="flex flex-col flex-1">
@@ -33,20 +33,12 @@ const MovieCard = ({ item }) => {
             </svg>
           </span>
         </div>
-        {/* <button
-          className="capitalize py-3 px-6 bg-primary rounded-lg flex gap-x-1 w-full
-    items-center justify-center mt-auto"
-          onClick={() => navigate(`/movie/${id}`)}
-        >
-          watch now
-          <img src="/play.svg" alt="" className="w-6" />
-        </button> */}
         <Button
           bgColor="primary"
           className="w-full"
           onClick={() => navigate(`/movie/${id}`)}
         >
-          watch now{' '}
+          watch now
         </Button>
       </div>
     </div>

@@ -11,7 +11,6 @@ const Banner = () => {
     fetcher
   );
   const movies = data?.results || [];
-  console.log(`MovieList ~ movies:`, movies);
   return (
     <Swiper grabCursor={'true'} slidesPerView={'auto'}>
       {movies.length > 0 &&

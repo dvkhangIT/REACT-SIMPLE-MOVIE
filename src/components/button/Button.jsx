@@ -10,8 +10,6 @@ const Button = ({ onClick, className = '', children, type = 'button', bgColor = 
     default:
       break;
   }
-
-  console.log(bgColor);
   return (
     <button
       type={type}
