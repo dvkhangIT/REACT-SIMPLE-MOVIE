@@ -40,7 +40,7 @@ const MoviePage = () => {
   };
 
   return (
-    <div className="p-10">
+    <div className=" xl:p-10 sm:p-5 lg:p-10">
       <div className="flex mb-10 text-white">
         <div className="flex-1">
           <input
@@ -68,7 +68,10 @@ const MoviePage = () => {
       {loading && (
         <div className="w-10 h-10 border-4 border-primary rounded-full border-t-transparent mx-auto animate-spin"></div>
       )}
-      <div className="grid grid-cols-4 gap-10">
+      <div
+        className="grid xl:grid-cols-4 xl:gap-10 grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-5
+      lg:grid-cols-4 lg:gap-5"
+      >
         {!loading &&
           movies.length > 0 &&
           movies.map((item) => <MovieCard item={item} key={item.id}></MovieCard>)}
@@ -76,11 +79,11 @@ const MoviePage = () => {
       <div className="mt-10">
         <ReactPaginate
           breakLabel="..."
-          nextLabel="next >"
+          nextLabel=">"
           onPageChange={handlePageClick}
           pageRangeDisplayed={5}
           pageCount={pageCount}
-          previousLabel="< previous"
+          previousLabel="<"
           renderOnZeroPageCount={null}
           className="pagination"
         />

@@ -28,7 +28,7 @@ const MovieDetailPage = () => {
       </div>
       <h1 className="text-center font-bold mb-10 text-4xl text-white">{title}</h1>
       {genres.length > 0 && (
-        <div className="flex items-center justify-center gap-x-10 mb-10">
+        <div className="flex items-center justify-center gap-5 mb-10 flex-wrap xl:gap-x-10 xl:flex-nowrap lg: gap-x-10 lg:flex-nowrap">
           {genres.map((item) => (
             <span
               className="border border-primary text-primary rounded py-2 px-4"
@@ -57,7 +57,7 @@ function MovieCredits() {
   return (
     <div className="py-10">
       <h2 className="capitalize text-center text-3xl mb-10">casts</h2>
-      <div className="grid grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-5 lg:grid-cols-4 lg:gap-5">
         {cast.slice(0, 4).map((item) => (
           <div className="cast-item" key={item.id}>
             <img

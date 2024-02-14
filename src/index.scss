@@ -30,4 +30,7 @@
   .selected {
     @apply text-primary;
   }
+  @media (max-width: 640px) {
+    flex-wrap: wrap;
+  }
 }
