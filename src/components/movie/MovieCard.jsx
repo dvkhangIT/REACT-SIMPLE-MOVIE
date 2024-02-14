@@ -1,6 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import Button from '../button/Button';
 import { tmdbAPI } from '../../config';
+import PropTypes from 'prop-types';
+import { withErrorBoundary } from 'react-error-boundary';
+
 const MovieCard = ({ item }) => {
   const { poster_path, id, release_date, title, vote_average } = item;
   const navigate = useNavigate();
@@ -18,7 +21,7 @@ const MovieCard = ({ item }) => {
         >
           <span>{new Date(release_date).getFullYear()}</span>
           <span className="flex items-center gap-x-1">
-            {vote_average}
+            {typeof vote_average === 'number' && !isNaN(vote_average) ? vote_average : ''}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -44,5 +47,20 @@ const MovieCard = ({ item }) => {
     </div>
   );
 };
-
-export default MovieCard;
+MovieCard.propTypes = {
+  item: PropTypes.shape({
+    poster_path: PropTypes.string,
+    id: PropTypes.number,
+    release_date: PropTypes.string,
+    title: PropTypes.string,
+    vote_average: PropTypes.number,
+  }),
+};
+function FallbackComponent() {
+  return (
+    <p className="bg-red-50 text-red-400">Something went wrong with this component</p>
+  );
+}
+export default withErrorBoundary(MovieCard, {
+  FallbackComponent,
+});
