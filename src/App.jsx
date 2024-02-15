@@ -2,6 +2,7 @@ import { Fragment, lazy, Suspense } from 'react';
 import 'swiper/scss';
 import { Route, Routes } from 'react-router-dom';
 import Main from './components/layout/Main';
+import NotFound from './NotFound';
 const HomePage = lazy(() => import('./pages/HomePage'));
 // const MoviePage = lazy(() => import('./pages/MoviePage'));
 const MoviePagev2 = lazy(() => import('./pages/MoviePagev2'));
@@ -20,6 +21,7 @@ function App() {
               element={<MovieDetailPage></MovieDetailPage>}
             ></Route>
           </Route>
+          <Route path="*" element={<NotFound></NotFound>}></Route>
         </Routes>
       </Suspense>
     </Fragment>
