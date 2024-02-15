@@ -3,6 +3,7 @@ import Button from '../button/Button';
 import { tmdbAPI } from '../../config';
 import PropTypes from 'prop-types';
 import { withErrorBoundary } from 'react-error-boundary';
+import LoadingSkeleton from '../loading/LoadingSkeleton';
 
 const MovieCard = ({ item }) => {
   const { poster_path, id, release_date, title, vote_average } = item;
@@ -64,3 +65,29 @@ function FallbackComponent() {
 export default withErrorBoundary(MovieCard, {
   FallbackComponent,
 });
+export const MovieCardSkeleton = () => {
+  return (
+    <div className="movie-card flex flex-col rounded-lg p-3 bg-slate-800 text-white select-none h-full">
+      <LoadingSkeleton
+        className={'w-full h-[250px] object-cover rounded-lg mb-5'}
+      ></LoadingSkeleton>
+      <div className="flex flex-col flex-1">
+        <h3 className="capitalize text-xl font-bold mb-3">
+          <LoadingSkeleton className={'w-full h-5'}></LoadingSkeleton>
+        </h3>
+        <div
+          className="flex items-center justify-between text-sm
+    opacity-50 mb-10"
+        >
+          <span>
+            <LoadingSkeleton width="50px" height="10px"></LoadingSkeleton>
+          </span>
+          <span>
+            <LoadingSkeleton width="30px" height="10px"></LoadingSkeleton>
+          </span>
+        </div>
+        <LoadingSkeleton className={'h-10 rounded-lg'}></LoadingSkeleton>
+      </div>
+    </div>
+  );
+};

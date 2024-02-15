@@ -3,6 +3,7 @@ import useSWR from 'swr';
 import { fetcher, tmdbAPI } from '../config';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import MovieCard from '../components/movie/MovieCard';
+import LoadingSkeleton from '../components/loading/LoadingSkeleton';
 
 const MovieDetailPage = () => {
   const { movieId } = useParams();
@@ -50,7 +51,8 @@ const MovieDetailPage = () => {
 };
 function MovieMeta({ type = 'videos' }) {
   const { movieId } = useParams();
-  const { data } = useSWR(tmdbAPI.getMovieMeta(movieId, type), fetcher);
+  const { data, error } = useSWR(tmdbAPI.getMovieMeta(movieId, type), fetcher);
+  const isLoading = !data && !error;
   if (!data) return null;
   if (type === 'credits') {
     const { cast } = data;
